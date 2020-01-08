@@ -1,0 +1,10 @@
+name: data-getter
+version: "1.0.1"
+autor: pewpew79 <grigoriev.d3@mail.ru>
+about: Rust data getter
+args:
+    - config:
+        short: c
+        long: config tree
+        help: App config path
+        takes_value: true
