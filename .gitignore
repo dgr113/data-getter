@@ -1,1 +1,6 @@
+/.idea/
+/.run/
+
+/target/
+
 /*.lock
