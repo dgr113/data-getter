@@ -9,23 +9,10 @@ pub use crate::config::GetterConfig;
 
 
 
-// /** Run module wrapper */
-// pub fn run<'a>(tree: &'a serde_yaml::Value, access_key: &[&str], path_field: &str, extract_fields: Option<&Vec<&str>>, fields_key_sep: Option<&str>) -> ResultParse<serde_json::Value> {
-//     let processing_one = move |node| InterfaceLayer::process_one(node, path_field, extract_fields, fields_key_sep);
-//     let processing_many = move |node| InterfaceLayer::process_many(node, path_field, extract_fields, fields_key_sep);
-//
-//     let root_node = InterfaceLayer::extract_root_node(tree, access_key);
-//
-//     match root_node.get( path_field ) {
-//         Some( _ ) => processing_one( root_node ),
-//         None => processing_many( root_node )
-//     }
-// }
-
 /** Run module wrapper */
-pub fn run<'a>(tree: &'a serde_yaml::Value, getter_config: GetterConfig) -> ResultParse<serde_json::Value> {
-    let root_node = InterfaceLayer::extract_root_node(tree, getter_config.access_key.as_slice());
-    match root_node.get( &getter_config.path_field ) {
+pub fn run<'a>(tree: &'a serde_yaml::Value, getter_config: GetterConfig, access_key: &[String]) -> ResultParse<serde_json::Value> {
+    let root_node = InterfaceLayer::extract_root_node(tree, access_key);
+    match root_node.get( &getter_config.file_path_field_name) {
         Some( _ ) => InterfaceLayer::process_one(root_node, &getter_config),
         None => InterfaceLayer::process_many(root_node, &getter_config)
     }

@@ -91,7 +91,7 @@ impl ProcessingLayer {
 
     // fn get_unit_content(obj: &serde_yaml::Value, path_field: &str, extract_fields: Option<&Vec<&str>>, fields_key_sep: Option<&str>) -> ResultParse<UnitContent> {
     fn get_unit_content<S: Into<String>>(obj: &serde_yaml::Value, getter_config: &GetterConfig) -> ResultParse<UnitContent> {
-        let content_path = obj[&getter_config.path_field].as_str().ok_or( ApiError::SerdeError( "Error content path field into string".to_string() ) ) ?;
+        let content_path = obj[&getter_config.file_path_field_name].as_str().ok_or( ApiError::SerdeError( "Error content path field into string".to_string() ) ) ?;
         let content = fs::read_to_string( content_path ) ?;
         Self::extract_file_content(content, getter_config.extract_fields.as_ref(), getter_config.fields_key_sep.clone())
     }
