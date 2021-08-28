@@ -10,7 +10,10 @@ pub use crate::config::GetterConfig;
 
 
 /** Run module wrapper */
-pub fn run<'a>(tree: &'a serde_yaml::Value, getter_config: GetterConfig, access_key: &[String]) -> ResultParse<serde_json::Value> {
+pub fn run<S>(tree: &serde_yaml::Value, getter_config: GetterConfig, access_key: &[S])
+    -> ResultParse<serde_json::Value>
+        where S: Into<String> + serde_yaml::Index
+{
     let root_node = InterfaceLayer::extract_root_node(tree, access_key);
     match root_node.get( &getter_config.file_path_field_name) {
         Some( _ ) => InterfaceLayer::process_one(root_node, &getter_config),
