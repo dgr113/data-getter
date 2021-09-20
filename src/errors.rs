@@ -41,7 +41,7 @@ impl Display for ApiError {
             Self::SimpleMsgError( t ) => format!("SimpleMsgError: {}", t.to_string()),
             Self::IOError( t ) => format!("IOError: {}", t.to_string()),
             Self::ConfigError( t ) => format!("ConfigError: {}", t.to_string()),
-            Self::SerdeError( t ) => format!("SessionDependencyError: {}", t.to_string()),
+            Self::SerdeError( t ) => format!("SerdeError: {}", t.to_string()),
             Self::IndexError => format!( "IndexGettingError" )
         };
         write!(f, "{}", msg)

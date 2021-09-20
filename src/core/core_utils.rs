@@ -94,6 +94,10 @@ impl ProcessingLayer {
         let content_path = obj[&getter_config.file_path_field_name].as_str().ok_or( ApiError::SerdeError( "Error content path field into string".to_string() ) ) ?;
         let content = fs::read_to_string( content_path ) ?;
         Self::extract_file_content(content, getter_config.extract_fields.as_ref(), getter_config.fields_key_sep.clone())
+            .map_err( |err| {
+                println!("!!!!!!!!!! {}", err.to_string());
+                err
+            })
     }
 
     pub fn build_results_sequence(node: &serde_yaml::Value, getter_config: &GetterConfig) -> ResultParse<UnitContentPack> {
